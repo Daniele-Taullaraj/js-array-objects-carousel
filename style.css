@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.one {
+    height: 70vh;
+}
+
+#main-card {
+    width: 60rem;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+}
+
+#little-card {
+    height: 100%;
+    object-fit: cover;
+}
+
+#main-card img,
+#little-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide {
+    display: none;
+}
+
+.active {
+    display: block !important;
+}
+
+.opacity {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.relative {
+    position: relative;
+    width: 18rem;
+    height: calc(100% / 5);
+}
+
+.Noopacity {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.text-img {
+    display: none;
+    color: white;
+    text-align: end;
+    font-weight: bold;
+    position: absolute;
+    bottom: 2rem;
+    right: 1rem;
+}
