@@ -25,7 +25,17 @@ const images = [
 // prendo i 2 div dove aggiungero' le card
 const mainCard = document.getElementById("main-card")
 const smallCard = document.getElementById("little-card")
+const next = document.querySelector(".nextBtn");
+const prev = document.querySelector(".previousBtn");
+const repeat = document.querySelector(".repeatBtn");
+const stop = document.querySelector(".stopBtn");
 
+
+
+
+let opacity = document.getElementsByClassName("opacity");
+let slides = document.getElementsByClassName("slide");
+let textImg = document.getElementsByClassName("text-img")
 
 // per ciascun oggetto contenuto in images eseguo la funzione creaimg
 images.forEach(creaImg)
@@ -45,7 +55,7 @@ function creaImg(images, indice) {
                     </div>`;
         mainCard.innerHTML += mainImg;
         smallImg = `<div class="relative">
-                    <img src="./${images.image}" class="slide-lateral">
+                    <img src="./${images.image}">
                     <div class="opacity Noopacity"></div>
                     </div>`
         smallCard.innerHTML += smallImg;
@@ -58,7 +68,7 @@ function creaImg(images, indice) {
                     </div>`;
         mainCard.innerHTML += mainImg;
         smallImg = `<div class="relative">
-                    <img src="./${images.image}" class="slide-lateral">
+                    <img src="./${images.image}">
                     <div class="opacity"></div>
                     </div>`
         smallCard.innerHTML += smallImg;
@@ -69,183 +79,81 @@ function creaImg(images, indice) {
 
 
 
-const next = document.querySelector(".nextBtn");
-const prev = document.querySelector(".previousBtn");
-
-let opacity = document.getElementsByClassName("opacity");
-let slides = document.getElementsByClassName("slide");
-let textImg = document.getElementsByClassName("text-img")
-
-
-// // ciclo per controllare tutti gli elementi con la classe slide
-// for (let i = 0; i < slides.length; i++) {
-//     // se trovo l'elemento contenenete la classe active do il consenso per...
-//     if (slides[i].classList.contains("active")) {
-//         // attraverso il bottone next andare avanti
-//         next.addEventListener("click", function () {
-//             // rimuovo dall'elemento attuale la classe active
-//             slides[i].classList.remove("active");
-//             textImg[i].classList.remove("active");
-//             opacity[i].classList.remove("Noopacity");
-//             // se andando avanti arrivo alla max.lenght ressetto il contatore e assegno allo zeresimo elento la classe active
-//             if (i == (slides.length - 1)) {
-//                 slides[0].classList.add("active");
-//                 textImg[0].classList.add("active");
-//                 opacity[0].classList.add("Noopacity")
-//                 i = 0;
-//                 // se invece posso ancora andare mi sposto di 1
-//             } else {
-//                 slides[i + 1].classList.add("active");
-//                 textImg[i + 1].classList.add("active");
-//                 opacity[i + 1].classList.add("Noopacity")
-//                 i++;
-//             }
-//         })
-//         // attraverso il bottone prev tornare indietro
-//         prev.addEventListener("click", function () {
-
-//             if (slides[i].classList.contains("active")) {
-//                 slides[i].classList.remove("active");
-//                 textImg[i].classList.remove("active");
-//                 opacity[i].classList.remove("Noopacity")
-//                 // se arrivo a 0 ,setto il contatore a max.lenght e assegno la classe active all'ultimo elemento
-//                 if (i == 0) {
-//                     slides[slides.length - 1].classList.add("active");
-//                     textImg[slides.length - 1].classList.add("active");
-//                     opacity[slides.length - 1].classList.add("Noopacity")
-//                     i = slides.length - 1;
-//                 } else {
-//                     opacity[i - 1].classList.add("Noopacity")
-//                     textImg[i - 1].classList.add("active");
-//                     slides[i - 1].classList.add("active");
-//                     i--;
-//                 }
-//             }
-//         })
-//     }
-// }
 
 
 
+// ciclo per controllare tutti gli elementi con la classe slide
+for (let i = 0; i < slides.length; i++) {
+    // se trovo l'elemento contenenete la classe active do il consenso per...
+    if (slides[i].classList.contains("active")) {
+        // attraverso il bottone next andare avanti
+        next.addEventListener("click", function () {
+            // rimuovo dall'elemento attuale la classe active
+            slides[i].classList.remove("active");
+            textImg[i].classList.remove("active");
+            opacity[i].classList.remove("Noopacity");
+            // se andando avanti arrivo alla max.lenght ressetto il contatore e assegno allo zeresimo elento la classe active
+            if (i == (slides.length - 1)) {
+                slides[0].classList.add("active");
+                textImg[0].classList.add("active");
+                opacity[0].classList.add("Noopacity")
+                i = 0;
+                // se invece posso ancora andare mi sposto di 1
+            } else {
+                slides[i + 1].classList.add("active");
+                textImg[i + 1].classList.add("active");
+                opacity[i + 1].classList.add("Noopacity")
+                i++;
+            }
+        })
+        // attraverso il bottone prev tornare indietro
+        prev.addEventListener("click", function () {
 
-// bonus timer
-let i = 0
-setInterval(function () {
-
-    slides[i].classList.remove("active");
-    textImg[i].classList.remove("active");
-    opacity[i].classList.remove("Noopacity");
-
-    i++
-    console.log(i)
-    if (i == slides.length) {
-        i = 0
+            slides[i].classList.remove("active");
+            textImg[i].classList.remove("active");
+            opacity[i].classList.remove("Noopacity")
+            // se arrivo a 0 ,setto il contatore a max.lenght e assegno la classe active all'ultimo elemento
+            if (i == 0) {
+                slides[slides.length - 1].classList.add("active");
+                textImg[slides.length - 1].classList.add("active");
+                opacity[slides.length - 1].classList.add("Noopacity")
+                i = slides.length - 1;
+            } else {
+                opacity[i - 1].classList.add("Noopacity")
+                textImg[i - 1].classList.add("active");
+                slides[i - 1].classList.add("active");
+                i--;
+            }
+        })
     }
-    slides[i].classList.add("active");
-    textImg[i].classList.add("active");
-    opacity[i].classList.add("Noopacity")
-
-}, 2000)
+}
 
 
 
 
+// // bonus timer
 
+let intervallo;
+repeat.addEventListener("click", function () {
+    for (let i = 0; i < slides.length; i++) {
+        if (slides[i].classList.contains("active")) {
+            intervallo = setInterval(function () {
+                slides[i].classList.remove("active");
+                textImg[i].classList.remove("active");
+                opacity[i].classList.remove("Noopacity");
+                i++
+                if (i == slides.length) {
+                    i = 0
+                }
+                slides[i].classList.add("active");
+                textImg[i].classList.add("active");
+                opacity[i].classList.add("Noopacity")
 
+            }, 2000)
+        }
+    }
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const next = document.querySelector(".nextBtn");
-// const prev = document.querySelector(".previousBtn");
-// let opacity = document.getElementsByClassName("opacity");
-
-
-
-// let slides = document.getElementsByClassName("slide");
-// console.log(slides)
-
-
-// // ciclo per controllare tutti gli elementi con la classe slide
-// for (let i = 0; i < slides.length; i++) {
-//     // se trovo l'elemento contenenete la classe active do il consenso per...
-//     if (slides[i].classList.contains("active")) {
-//         // attraverso il bottone next andare avanti
-//         next.addEventListener("click", function () {
-//             // rimuovo dall'elemento attuale la classe active
-//             slides[i].classList.remove("active");
-//             opacity[i].classList.remove("Noopacity")
-//             // se andando avanti arrivo alla max.lenght ressetto il contatore e assegno allo zeresimo elento la classe active
-//             if (i == (slides.length - 1)) {
-//                 slides[0].classList.add("active");
-//                 opacity[0].classList.add("Noopacity")
-//                 i = 0;
-//                 // se invece posso acnora andare mi sposto di 1
-//             } else {
-//                 slides[i + 1].classList.add("active");
-//                 opacity[i + 1].classList.add("Noopacity")
-//                 i++;
-//             }
-//         })
-//         // attraverso il bottone prev tornare indietro
-//         prev.addEventListener("click", function () {
-
-//             if (slides[i].classList.contains("active")) {
-//                 slides[i].classList.remove("active");
-//                 opacity[i].classList.remove("Noopacity")
-//                 // se arrivo a 0 ,setto il contatore a max.lenght e assegno la classe active all'ultimo elemento
-//                 if (i == 0) {
-//                     slides[slides.length - 1].classList.add("active");
-//                     opacity[slides.length - 1].classList.add("Noopacity")
-//                     i = slides.length - 1;
-//                 } else {
-//                     opacity[i - 1].classList.add("Noopacity")
-//                     slides[i - 1].classList.add("active");
-//                     i--;
-//                 }
-//             }
-//         })
-//     }
-// }
+stop.addEventListener("click", function () {
+    clearInterval(intervallo);
+})
